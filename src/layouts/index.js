@@ -3,13 +3,33 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 
 import Navbar from '../components/Navbar'
-import './all.sass'
+import '../css/main.css';
+
+
+
+
 
 const TemplateWrapper = ({ children }) => (
-  <div>
-    <Helmet title="Home | Gatsby + Netlify CMS" />
+  <div className="pageWrap">
+    {() => {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    }}
+    <Helmet
+      title="Home | Gatsby + Netlify CMS"
+      script={[
+        { src: "https://identity.netlify.com/v1/netlify-identity-widget.js" }
+      ]}
+    />
     <Navbar />
-    <div>{children()}</div>
+    <div className="pageContent">{children()}</div>
   </div>
 )
 

@@ -7,34 +7,40 @@ export default class IndexPage extends React.Component {
     const { data } = this.props
     const { edges: posts } = data.allMarkdownRemark
 
+    console.log(posts);
+
     return (
       <section className="section">
         <div className="container">
-          <div className="content">
-            <h1 className="has-text-weight-bold is-size-2">Latest Stories</h1>
+          <div className="indexHeader">
+            <h1>Latest Posts</h1>
           </div>
           {posts
-            .map(({ node: post }) => (
+            .map(({ node: post }, i) => (
               <div
-                className="content"
-                style={{ border: '1px solid #eaecee', padding: '2em 4em' }}
+                className="contentBox"
+                style={{ border: '1px solid #eaecee' }}
                 key={post.id}
               >
-                <p>
-                  <Link className="has-text-primary" to={post.fields.slug}>
-                    {post.frontmatter.title}
-                  </Link>
-                  <span> &bull; </span>
-                  <small>{post.frontmatter.date}</small>
-                </p>
-                <p>
-                  {post.excerpt}
-                  <br />
-                  <br />
-                  <Link className="button is-small" to={post.fields.slug}>
-                    Keep Reading →
-                  </Link>
-                </p>
+                <div className="listDate" style={{ backgroundImage: `url(https://picsum.photos/300/?image=${Math.round(Math.random() * 1000)})` }}>
+                  {post.frontmatter.date}
+                </div>
+                <div className="listContent">
+                  <p>
+                    <Link className="listContent__title" to={post.fields.slug}>
+                      {post.frontmatter.title}
+                    </Link>
+                  </p>
+                  <p>
+                    {post.excerpt}
+                  </p>
+                  <div className="listContent__button">
+                    <Link to={post.fields.slug}>
+                      Keep Reading →
+                    </Link>
+                  </div>
+                </div>
+
               </div>
             ))}
         </div>
