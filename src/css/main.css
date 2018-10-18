@@ -346,7 +346,7 @@ div.postIntro {
 
 @media screen and (max-width: 600px) {
   .navbar-start {
-    justify-content: right;
+    justify-content: flex-end;
     padding-right: 13px;
   }
   .navbar-start a.navbar-item:nth-of-type(2) {
